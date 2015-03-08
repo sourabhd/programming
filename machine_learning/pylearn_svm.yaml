@@ -1,0 +1,19 @@
+!obj:pylearn2.train.Train {
+    dataset: &train !obj:pylearn_svm.SyntheticDataset {
+    },
+    model: !obj:pylearn_svm.LinearSVM {
+        num_features: 2,
+        num_classes: 2,
+    },
+    algorithm: !obj:pylearn2.training_algorithms.sgd.SGD {
+        batch_size: 2000,
+        learning_rate: 0.1,
+        monitoring_dataset: {
+            'train' : *train,
+        },
+        cost: !obj:pylearn_svm.LinearSVMCost {},
+        termination_criterion: !obj:pylearn2.termination_criteria.EpochCounter {
+            max_epochs: 1000,
+        },
+    },
+}
